@@ -3,7 +3,7 @@
 	"$id": "util.json",
 	"title": "Util",
 	"description": "Utility definitions to be used in other schemas.",
-	"version": "1.11.5",
+	"version": "1.11.7",
 	"definitions": {
 		"metaBlock": {
 			"type": "object",
@@ -64,6 +64,35 @@
 					"source"
 				],
 				"additionalProperties": false
+			}
+		},
+		"reprintedAs": {
+			"type": "array",
+			"items": {
+				"oneOf": [
+					{
+						"description": "A UID, e.g. \"longsword|phb\"",
+						"type": "string"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"uid": {
+								"description": "A UID, e.g. \"longsword|phb\"",
+								"type": "string"
+							},
+							"tag": {
+								"description": "A tag used in the renderer, e.g. \"creature\"",
+								"type": "string"
+							}
+						},
+						"additionalProperties": false,
+						"required": [
+							"tag",
+							"uid"
+						]
+					}
+				]
 			}
 		},
 		"languageNameLower": {
@@ -1099,6 +1128,9 @@
 				},
 				{
 					"type": "integer"
+				},
+				{
+					"const": true
 				}
 			]
 		},
@@ -1891,6 +1923,30 @@
 					"type"
 				]
 			}
+		},
+		"consumesObject": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"enum": [
+						"Superiority Dice",
+						"Ki",
+						"Channel Divinity",
+						"Psionic Energy Dice",
+						"Wild Shape",
+						"Sorcery Points",
+						"Arcane Shot"
+					]
+				},
+				"amount": {
+					"type": "integer"
+				}
+			},
+			"required": [
+				"name"
+			],
+			"additionalProperties": false
 		},
 		"dataDamageTags": {
 			"type": "string",

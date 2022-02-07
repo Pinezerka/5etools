@@ -4,7 +4,7 @@
 
 	"title": "Util",
 	"description": "Utility definitions to be used in other schemas.",
-	"version": "1.11.5",
+	"version": "1.11.7",
 
 	"definitions" : {
 		"metaBlock": {
@@ -66,6 +66,33 @@
 					"source"
 				],
 				"additionalProperties": false
+			}
+		},
+
+		"reprintedAs": {
+			"type": "array",
+			"items": {
+				"oneOf": [
+					{
+						"description": "A UID, e.g. \"longsword|phb\"",
+						"type": "string"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"uid": {
+								"description": "A UID, e.g. \"longsword|phb\"",
+								"type": "string"
+							},
+							"tag": {
+								"description": "A tag used in the renderer, e.g. \"creature\"",
+								"type": "string"
+							}
+						},
+						"additionalProperties": false,
+						"required": ["tag", "uid"]
+					}
+				]
 			}
 		},
 
@@ -668,6 +695,9 @@
 				},
 				{
 					"type": "integer"
+				},
+				{
+					"const": true
 				}
 			]
 		},
@@ -1391,6 +1421,31 @@
 				},
 				"required": ["name", "type"]
 			}
+		},
+
+		"consumesObject": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"$$ifSiteElse_key": {
+						"keySite": "enum",
+						"keyBrew": "examples",
+						"value": [
+							"Superiority Dice",
+							"Ki",
+							"Channel Divinity",
+							"Psionic Energy Dice",
+							"Wild Shape",
+							"Sorcery Points",
+							"Arcane Shot"
+						]
+					}
+				},
+				"amount": {"type": "integer"}
+			},
+			"required": ["name"],
+			"additionalProperties": false
 		},
 
 		"dataDamageTags": {

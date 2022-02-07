@@ -114,7 +114,9 @@ PropOrder._MONSTER = [
 
 	"srd",
 	"basicRules",
+	"additionalSources",
 	"otherSources",
+	"reprintedAs",
 
 	"summonedBySpell",
 	"summonedByClass",
@@ -498,6 +500,8 @@ PropOrder._SUBCLASS = [
 
 	"additionalSpells",
 
+	"optionalfeatureProgression",
+
 	"subclassTableGroups",
 	"subclassFeatures",
 ];
@@ -523,6 +527,9 @@ PropOrder._CLASS_FEATURE = [
 
 	"header",
 	"type",
+
+	"consumes",
+
 	"entries",
 ];
 PropOrder._SUBCLASS_FEATURE = [
@@ -546,6 +553,9 @@ PropOrder._SUBCLASS_FEATURE = [
 
 	"header",
 	"type",
+
+	"consumes",
+
 	"entries",
 ];
 PropOrder._LANGUAGE = [
@@ -613,6 +623,9 @@ PropOrder._CULT = [
 	"page",
 	"srd",
 	"basicRules",
+	"additionalSources",
+	"otherSources",
+	"reprintedAs",
 
 	"type",
 
@@ -629,6 +642,9 @@ PropOrder._BOON = [
 	"page",
 	"srd",
 	"basicRules",
+	"additionalSources",
+	"otherSources",
+	"reprintedAs",
 
 	"type",
 
@@ -1079,6 +1095,7 @@ PropOrder._RACE_SUBRACE = [
 	"basicRules",
 	"additionalSources",
 	"otherSources",
+	"reprintedAs",
 
 	new PropOrder._ObjectKey("_copy", {
 		order: [
@@ -1093,8 +1110,9 @@ PropOrder._RACE_SUBRACE = [
 
 	"lineage",
 	"creatureTypes",
+	"creatureTypeTags",
 
-	"size",
+	new PropOrder._ArrayKey("size", {fnSort: SortUtil.ascSortSize}),
 	"speed",
 	"ability",
 
@@ -1215,6 +1233,9 @@ PropOrder._HAZARD = [
 	"page",
 	"srd",
 	"basicRules",
+	"additionalSources",
+	"otherSources",
+	"reprintedAs",
 
 	"trapHazType",
 

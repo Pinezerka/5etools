@@ -285,6 +285,10 @@ i > i {
 	width: initial !important;
 }
 
+.w-20p {
+	width: 20px !important;
+}
+
 .w-30p {
 	width: 30px !important;
 }
@@ -345,6 +349,10 @@ i > i {
 	max-width: 80% !important;
 }
 
+.max-w-100 {
+	max-width: 100% !important;
+}
+
 .max-w-100p {
 	max-width: 100px !important;
 }
@@ -369,6 +377,14 @@ i > i {
 
 .h-100h {
 	height: 100vh !important;
+}
+
+.h-20p {
+	height: 20px !important;
+}
+
+.h-21p {
+	height: 21px !important;
 }
 
 .h-27p {
@@ -504,7 +520,7 @@ i > i {
 	align-self: center !important;
 }
 
-.self-ve-flex-end {
+.ve-self-flex-end {
 	align-self: flex-end !important;
 }
 

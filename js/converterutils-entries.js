@@ -69,10 +69,13 @@ TagJsons.WALKER = MiscUtil.getWalker({
 
 class SpellTag {
 	static init (spells) {
-		spells.forEach(sp => SpellTag._SPELL_NAMES[sp.name.toLowerCase()] = {name: sp.name, source: sp.source});
+		spells
+			// Skip "Divination" to avoid tagging occurrences of the school
+			.filter(it => !(it.name === "Divination" && it.source === SRC_PHB))
+			.forEach(sp => SpellTag._SPELL_NAMES[sp.name.toLowerCase()] = {name: sp.name, source: sp.source});
 
 		SpellTag._SPELL_NAME_REGEX = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")})\\b`, "gi");
-		SpellTag._SPELL_NAME_REGEX_SPELL = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")}) (spell)`, "gi");
+		SpellTag._SPELL_NAME_REGEX_SPELL = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")}) (spell|cantrip)`, "gi");
 		SpellTag._SPELL_NAME_REGEX_AND = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")}) (and {@spell)`, "gi");
 		SpellTag._SPELL_NAME_REGEX_CAST = new RegExp(`(?<prefix>casts? (?:the )?)(?<spell>${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")})\\b`, "gi");
 	}
@@ -107,6 +110,13 @@ class SpellTag {
 					return `{@spell ${m[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}} ${m[2]}`;
 				});
 		}
+
+		// Tag common spells which often don't have e.g. the word "spell" nearby
+		strMod = strMod
+			.replace(/\b(antimagic field|dispel magic)\b/gi, (...m) => {
+				const spellMeta = SpellTag._SPELL_NAMES[m[1].toLowerCase()];
+				return `{@spell ${m[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
+			});
 
 		strMod
 			.replace(SpellTag._SPELL_NAME_REGEX_CAST, (...m) => {
